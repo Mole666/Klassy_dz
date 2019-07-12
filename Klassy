@@ -1,0 +1,115 @@
+class Farm:
+    status = '\nЖивотные голодны\n'
+    all_weight = []
+    most_weight = {}
+    def check(self):
+        print(Farm.status)
+
+    def feed(self):
+        self.status = '\nЖивотные и птицы накормлены\n'
+        print('\nУспешно!', self.status, "\n")
+
+    def __init__(self, name, weight):
+        self.name = name
+        self.weight = weight
+        self.all_weight.append(weight)
+        self.most_weight.update({name : weight})
+
+    def show_farm_weight(self):
+        print('\nОбщий вес животных на ферме:', sum(self.all_weight), 'кг\n')
+
+    def show_most_weight(self):
+        for name, weight in Farm.most_weight.items():
+            if weight == max(Farm.most_weight.values()):
+                print('\nСамое тяжёлое животное на ферме: ', name, '\n')
+
+
+class Birds(Farm):
+    product_status = '\nМожно собирать яйца\n'
+
+    def check_product_status(self):
+        print(Birds.product_status)
+
+    def collecting(self):
+        self.product_status = '\nНовые яйца ещё не снесены\n'
+        print('\nУспешно! Яйца собраны\n')
+
+class Artiodactyls(Farm):
+    product_status = '\nПора доить коз и коров\n'
+
+    def check_product_status(self):
+        print(Artiodactyls.product_status)
+
+    def milk(self):
+        self.product_status = '\nЖивотных пока не нужно доить\n'
+        print('\nУспешно! Молоко собрано.\n')
+
+class Sheep(Artiodactyls):
+    product_status = '\nПора стричь овец\n'
+
+    def check_product_status(self):
+        print(Sheep.product_status)
+
+    def shearing(self):
+        self.product_status = '\nШерсть у овец ещё не выросла\n'
+        print('\nУспешно! Овцы острижены.\n')
+
+sheep_1 = Sheep('Барашек', 170)
+sheep_2 = Sheep('Кудрявый', 150)
+
+class Cow(Artiodactyls):
+    product_status = '\nПора доить корову\n'
+
+cow = Cow('Манька', 750)
+
+class Gooses(Birds):
+    product_status = 'Пора собирать яйца'
+
+goose_1 = Gooses('Серый', 7)
+goose_2 = Gooses('Белый', 8)
+
+class Chicken(Birds):
+    product_status = 'Пора собирать яйца'
+
+chick_1 = Chicken('Ко-ко', 1.2)
+chick_2 = Chicken('Кукареку', 1)
+
+class Goats(Artiodactyls):
+    product_status = 'Пора доить козу'
+
+goat_1 = Goats('Рога', 40)
+goat_2 = Goats('Копыта', 50)
+
+class Duck(Birds):
+    product_status = 'Пора собирать яйца'
+
+duck = Duck('Кряква', 4)
+
+def choose():
+    choose_command = input("aw - Показать общий вес животных на ферме\nmw - Показать самое тяжёлое животное\nch - Проверить голодны ли животные и птицы\nca - Проверить состояние рогатого скота\ncs - Проверить состояние овец\ncb - Проверить состояние птиц\nf - Накормить всех животных на ферме\nm - Подоить коз и коров\ns - Подстричь овец\nc - Собрать яйца у птиц\n")
+    if choose_command == 'f':
+        Farm.feed(Farm)
+    if choose_command == 'c':
+        Birds.collecting(Birds)
+    if choose_command == 'm':
+        Artiodactyls.milk(Artiodactyls)
+    if choose_command == 's':
+        Sheep.shearing(Sheep)
+    if choose_command == 'ch':
+        Farm.check(Farm)
+    if choose_command == 'cb':
+        Birds.check_product_status(Birds)
+    if choose_command =='ca':
+        Artiodactyls.check_product_status(Artiodactyls)
+    if choose_command == 'cs':
+        Sheep.check_product_status(Sheep)
+    if choose_command == 'aw':
+        Farm.show_farm_weight(Farm)
+    if choose_command == 'mw':
+        Farm.show_most_weight(Farm)
+    command_list = ['aw', 'mw', 'ch','ca', 'cs', 'cb', 'f', 'm', 's', 'c',]
+    if choose_command not in command_list:
+        print('\nНеверная команда\n')
+
+while True:
+    choose()
